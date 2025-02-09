@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 public class AddActivity extends AppCompatActivity {
 
     private EditText etEventName, etEventDescription, etEventDate, etEventLocation;
@@ -45,12 +47,17 @@ public class AddActivity extends AppCompatActivity {
         }
         String organizerEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-        Event event = new Event(name, description, date, location, organizerEmail);
+        Event event = new Event("", name, description, date, location, organizerEmail, new ArrayList<>());
 
 
         db.collection("events")
                 .add(event)
                 .addOnSuccessListener(documentReference -> {
+                    String eventId = documentReference.getId();
+                    event.setEventId(eventId); // Set the eventId in the Event object
+
+                    // Update the event in Firestore with the eventId
+                    documentReference.update("eventId", eventId);
                     Toast.makeText(AddActivity.this, "Event added successfully!", Toast.LENGTH_SHORT).show();
                     Intent addEventIntent = new Intent(AddActivity.this, MainActivity.class);
                     startActivity(addEventIntent);

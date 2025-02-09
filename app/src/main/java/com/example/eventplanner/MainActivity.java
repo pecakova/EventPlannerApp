@@ -137,6 +137,14 @@ public class MainActivity extends AppCompatActivity {
                         organizerEvents.clear();
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                             Event event = document.toObject(Event.class);
+                            ArrayList<String> attendees = event.getAttendees();
+                            if (attendees == null) {
+                                attendees = new ArrayList<>();
+                            }
+
+                            // Now set the attendees list for the event
+                            event.setAttendees(attendees);
+
                             if (event.getOrganizerEmail() != null && event.getOrganizerEmail().equals(currentUserEmail)) {
                                 organizerEvents.add(event);
                             } else {
