@@ -1,5 +1,6 @@
 [versions]
 agp = "8.7.3"
+constraintlayoutVersion = "2.1.0"
 firebaseAuth = "23.1.0"
 firebaseAuthVersion = "22.3.1"
 firebaseBom = "33.8.0"
@@ -20,6 +21,7 @@ playServicesBase = "18.5.0"
 
 [libraries]
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+constraintlayout-v210 = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayoutVersion" }
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
 firebase-auth-v2231 = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuthVersion" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }

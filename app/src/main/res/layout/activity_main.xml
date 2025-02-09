@@ -6,6 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/nameFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:hint="Search by Name"
+        android:inputType="text"
+        android:padding="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/filterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apply Filter"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/nameFilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
     <TextView
         android:id="@+id/organizerHeader"
         android:layout_width="wrap_content"
@@ -14,22 +38,21 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/btnProfile"
+        app:layout_constraintTop_toBottomOf="@id/filterButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <!-- RecyclerView for Organizer's Events -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/organizerEventsRecyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/organizerHeader"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="164dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/organizerHeader" />
 
-    <!-- TextView for All Events Header -->
     <TextView
         android:id="@+id/allEventsHeader"
         android:layout_width="wrap_content"
@@ -43,7 +66,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <!-- RecyclerView for All Events -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/allEventsRecyclerView"
         android:layout_width="0dp"
@@ -54,7 +76,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="8dp"/>
 
-    <!-- Profile Button -->
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnProfile"
         android:layout_width="50dp"
@@ -67,13 +88,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Add Event Button -->
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/fabAddEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
         android:src="@android:drawable/ic_input_add"
         android:contentDescription="Add Event"
         android:layout_marginBottom="16dp"

@@ -35,6 +35,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public int getItemCount() {
         return eventList.size();
     }
+    public void updateEventList(List<Event> filteredEvents) {
+        this.eventList = filteredEvents;
+        notifyDataSetChanged();
+    }
+
 
     static class EventViewHolder extends RecyclerView.ViewHolder {
         TextView textTitle, textDescription, textDate, textLocation;

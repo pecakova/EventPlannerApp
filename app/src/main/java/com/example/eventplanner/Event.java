@@ -4,7 +4,6 @@ public class Event {
     private String title, description, date, location, organizerEmail;
 
     public Event() {
-        // Empty constructor required for Firestore
     }
 
     public Event(String title, String description, String date, String location, String organizerEmail) {
@@ -15,7 +14,6 @@ public class Event {
         this.organizerEmail = organizerEmail;
     }
 
-    // Getters
     public String getTitle() { return title; }
     public String getDescription() { return description; }
     public String getDate() { return date; }

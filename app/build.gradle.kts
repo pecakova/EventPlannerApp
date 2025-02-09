@@ -50,6 +50,7 @@ dependencies {
     annotationProcessor (libs.compiler)
     implementation (libs.play.services.base)
     implementation (libs.play.services.auth)
+    implementation (libs.constraintlayout.v210)
 
 }
 
