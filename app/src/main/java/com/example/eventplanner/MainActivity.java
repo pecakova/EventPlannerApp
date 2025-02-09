@@ -63,8 +63,9 @@ public class MainActivity extends AppCompatActivity {
         organizerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         allEventsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        organizerAdapter = new EventAdapter(organizerEvents);
-        eventAdapter = new EventAdapter(eventList);
+        organizerAdapter = new EventAdapter(organizerEvents, currentUser.getEmail());
+        eventAdapter = new EventAdapter(eventList, currentUser.getEmail());
+
 
         organizerRecyclerView.setAdapter(organizerAdapter);
         allEventsRecyclerView.setAdapter(eventAdapter);

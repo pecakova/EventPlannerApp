@@ -1,7 +1,7 @@
 package com.example.eventplanner;
 
 public class Event {
-    private String title, description, date, location, organizerEmail;
+    private String title, description, date, location, organizerEmail = "";
 
     public Event() {
     }
@@ -18,6 +18,6 @@ public class Event {
     public String getDescription() { return description; }
     public String getDate() { return date; }
     public String getLocation() {return  location; }
-    public String getOrganizerEmail() {return organizerEmail; }
+    public String getOrganizerEmail() { return organizerEmail != null ? organizerEmail : ""; }
 
 }
