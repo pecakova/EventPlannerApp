@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">EventPlanner</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Log In</string>
+    <string name="register">Register</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="logout">Log Out</string>
+    <string name="registerPart">Don\'t have an account? Register</string>
+    <string name="fName">First Name</string>
+    <string name="lName">Last Name</string>
+    <string name="phone">Phone (optional)</string>
+    <string name="role">Role</string>
+    <string name="attendee">Attendee</string>
+    <string name="organizer">Organizer</string>
+    <string name="loginPart">Already have an account? Log in</string>
+
+</resources>
