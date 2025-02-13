@@ -47,10 +47,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         Log.d("EventAdapter", " Current User Email: " + currentUserEmail + ", Event Organizer Email: " + event.getOrganizerEmail());
 
         if (event.getOrganizerEmail().equals(currentUserEmail)) {
-            holder.deleteButton.setVisibility(View.VISIBLE); // Show delete button
+            holder.deleteButton.setVisibility(View.VISIBLE);
             holder.deleteButton.setOnClickListener(v -> deleteEvent(event.getTitle(), v.getContext()));
         } else {
-            holder.deleteButton.setVisibility(View.GONE); // Hide delete button for attendees or non-owner events
+            holder.deleteButton.setVisibility(View.GONE);
         }
         if (!event.getOrganizerEmail().equals(currentUserEmail)) {
             holder.joinButton.setVisibility(View.VISIBLE);
@@ -58,6 +58,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         } else {
             holder.joinButton.setVisibility(View.GONE);
         }
+        if (event.getAttendees() != null && !event.getAttendees().isEmpty()) {
+            holder.textAttendees.setText("Attendees: " + String.join(", ", event.getAttendees()));
+            holder.textAttendees.setVisibility(View.VISIBLE);
+        } else {
+            holder.textAttendees.setText("No attendees yet");
+            holder.textAttendees.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
@@ -90,46 +98,40 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 });
     }
     private void joinEvent(Event event, String currentUserEmail, Context context) {
-        // Ensure the attendees list is initialized
         if (event.getAttendees() == null) {
-            event.setAttendees(new ArrayList<>()); // If it's somehow still null, initialize it
+            event.setAttendees(new ArrayList<>());
         }
 
-        // Check if the user is already an attendee
-        if (event.getAttendees().contains(currentUserEmail)) {
-            return;
+        if (!event.getAttendees().contains(currentUserEmail)) {
+            event.getAttendees().add(currentUserEmail);
+
+            db.collection("events")
+                    .whereEqualTo("title", event.getTitle())
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            db.collection("events").document(document.getId())
+                                    .update("attendees", event.getAttendees())
+                                    .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(context, "Successfully joined the event!", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Toast.makeText(context, "Failed to join the event.", Toast.LENGTH_SHORT).show();
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(context, "Event not found.", Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            Toast.makeText(context, "You have already joined this event.", Toast.LENGTH_SHORT).show();
         }
-
-        // Add the current user's email to the attendees list
-        event.getAttendees().add(currentUserEmail);
-
-        // Get the event's document ID
-        String eventId = event.getEventId();
-
-        // Log event ID to check if it's null
-        Log.d("EventAdapter", "Event ID: " + eventId);
-
-        // Check if eventId is null or empty
-        if (eventId == null || eventId.isEmpty()) {
-            Toast.makeText(context, "Event ID is missing.", Toast.LENGTH_SHORT).show();
-            return;  // Don't proceed if event ID is null or empty
-        }
-
-        // Update the attendees field in the event document in Firestore
-        db.collection("events")
-                .document(eventId)
-                .update("attendees", event.getAttendees())
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(context, "Joined the event successfully!", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(context, "Failed to join the event.", Toast.LENGTH_SHORT).show();
-                });
     }
 
 
+
     static class EventViewHolder extends RecyclerView.ViewHolder {
-        TextView textTitle, textDescription, textDate, textLocation;
+        TextView textTitle, textDescription, textDate, textLocation, textAttendees;
         ImageButton deleteButton, joinButton;
 
         public EventViewHolder(@NonNull View itemView) {
@@ -138,6 +140,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             textDescription = itemView.findViewById(R.id.textEventDescription);
             textDate = itemView.findViewById(R.id.textEventDate);
             textLocation = itemView.findViewById(R.id.textEventLocation);
+            textAttendees = itemView.findViewById(R.id.textAttendees);
             deleteButton = itemView.findViewById(R.id.deleteButton);
             joinButton = itemView.findViewById(R.id.joinButton);
         }

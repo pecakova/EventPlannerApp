@@ -31,7 +31,7 @@ public class Event {
     public String getLocation() {return  location; }
     public String getOrganizerEmail() { return organizerEmail != null ? organizerEmail : ""; }
     public ArrayList<String> getAttendees() {
-        return attendees != null ? attendees : new ArrayList<>(); // Return an empty list if null
+        return attendees != null ? attendees : new ArrayList<>();
     }
     public void setAttendees(ArrayList<String> attendees) {
         this.attendees = attendees;

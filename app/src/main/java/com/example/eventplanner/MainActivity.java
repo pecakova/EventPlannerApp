@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,7 +22,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageButton btnProfile, fabAddEvent;
+    private ImageButton btnProfile;
+    private ExtendedFloatingActionButton fabAddEvent;
     private FirebaseFirestore db;
     private String userRole;
     private String userId;
@@ -142,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                                 attendees = new ArrayList<>();
                             }
 
-                            // Now set the attendees list for the event
                             event.setAttendees(attendees);
 
                             if (event.getOrganizerEmail() != null && event.getOrganizerEmail().equals(currentUserEmail)) {

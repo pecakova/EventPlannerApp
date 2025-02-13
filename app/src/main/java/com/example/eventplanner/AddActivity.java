@@ -54,9 +54,8 @@ public class AddActivity extends AppCompatActivity {
                 .add(event)
                 .addOnSuccessListener(documentReference -> {
                     String eventId = documentReference.getId();
-                    event.setEventId(eventId); // Set the eventId in the Event object
+                    event.setEventId(eventId);
 
-                    // Update the event in Firestore with the eventId
                     documentReference.update("eventId", eventId);
                     Toast.makeText(AddActivity.this, "Event added successfully!", Toast.LENGTH_SHORT).show();
                     Intent addEventIntent = new Intent(AddActivity.this, MainActivity.class);
